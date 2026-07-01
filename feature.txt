@@ -1,0 +1,123 @@
+Phase 1: Backend (Laravel API)
+✅ Authentication (Sanctum)
+✅ Register/Login/Logout
+✅ Role (Admin, Author)
+✅ Profile
+✅ CRUD Posts
+✅ Categories
+✅ Tags
+✅ Image Upload
+✅ Comments
+✅ Search
+✅ Pagination
+✅ Validation
+✅ Soft Delete
+
+Phase 2: Frontend (React)
+✅ Login/Register
+✅ Dashboard
+✅ Posts Table
+✅ Create/Edit Post
+✅ Categories CRUD
+✅ Tags CRUD
+✅ Profile Page
+✅ Rich Text Editor
+✅ Image Preview
+✅ Search
+✅ Pagination
+
+Phase 3: Public Website
+✅ Home
+✅ Blog List
+✅ Single Post
+✅ Category Page
+✅ Tag Page
+✅ Author Page
+✅ Related Posts
+✅ Recent Posts
+✅ Popular Posts
+
+Phase 4: Advanced
+✅ Slug URL
+✅ SEO Meta
+✅ Draft/Published Status
+✅ Featured Image
+✅ Like System
+✅ Bookmark
+✅ Reading Time
+✅ View Counter
+
+===========
+Tech Stack
+Laravel 13
+React
+Vite
+Sanctum
+Axios
+React Router
+Tailwind CSS
+React Hook Form
+React Quill
+MySQL
+
+=========
+Day 1: Project Setup + Database Design
+লক্ষ্য
+Laravel Backend তৈরি
+React Frontend তৈরি
+Git শুরু করা
+Database ডিজাইন করা
+
+Day 2 (আগামী ধাপ)
+
+আমরা শুরু করব Laravel Backend দিয়ে:
+
+Authentication (Laravel Sanctum)
+API Routes
+Register API
+Login API
+Logout API
+Protected Routes
+
+এটাই পুরো প্রজেক্টের ভিত্তি।
+
+
+Day 3 Checklist
+✅ Category Migration
+✅ Category Model
+✅ One-to-Many Relation (Category → Posts)
+✅ API Resource Routes
+✅ Index API
+✅ Store API
+✅ Show API
+✅ Update API
+✅ Delete API
+✅ Postman Testing
+
+Day 4 Checklist
+✅ Tag Migration
+✅ Tag Model
+✅ Tag CRUD API
+✅ post_tag Pivot Migration তৈরি
+✅ Tag ↔ Post Relationship প্রস্তুত
+✅ Postman Testing
+
+Day 5 Checklist
+✅ Posts Migration
+✅ Post Model
+✅ User ↔ Post Relationship
+✅ Category ↔ Post Relationship
+✅ Tag ↔ Post Relationship
+✅ post_tag Migration Run
+✅ Store API
+
+Day 6 Checklist
+✅ Post List API
+✅ Single Post API
+✅ Update API
+✅ Delete API
+✅ Many-to-Many Relationship
+✅ sync()
+✅ attach()
+✅ detach()
+✅ Eager Loading (with())

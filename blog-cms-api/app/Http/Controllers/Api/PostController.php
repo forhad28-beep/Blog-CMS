@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -35,9 +36,19 @@ class PostController extends Controller
             'status' => 'required|in:draft,published',
             'tags' => 'nullable|array',
             'tags.*' => 'exists:tags,id',
+
+            'featured_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $slug = Str::slug($data['title']);
+
+        $imagePath = null;
+
+        if ($request->hasFile('featured_image')) {
+            $imagePath = $request
+                ->file('featured_image')
+                ->store('posts', 'public');
+        }
 
         $post = Post::create([
             'user_id' => $request->user()->id,
@@ -46,7 +57,10 @@ class PostController extends Controller
             'slug' => $slug,
             'content' => $data['content'],
             'status' => $data['status'],
-            'published_at' => $data['status'] === 'published' ? now() : null,
+            'published_at' => $data['status'] === 'published'
+                ? now()
+                : null,
+            'featured_image' => $imagePath,
         ]);
 
         if (!empty($data['tags'])) {
@@ -80,6 +94,8 @@ class PostController extends Controller
             'status' => 'required|in:draft,published',
             'tags' => 'nullable|array',
             'tags.*' => 'exists:tags,id',
+
+            'featured_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $slug = Str::slug($data['title']);
@@ -92,6 +108,22 @@ class PostController extends Controller
             $slug .= '-' . time();
         }
 
+        $imagePath = $post->featured_image;
+
+        if ($request->hasFile('featured_image')) {
+
+            if (
+                $post->featured_image &&
+                Storage::disk('public')->exists($post->featured_image)
+            ) {
+                Storage::disk('public')->delete($post->featured_image);
+            }
+
+            $imagePath = $request
+                ->file('featured_image')
+                ->store('posts', 'public');
+        }
+
         $post->update([
             'category_id' => $data['category_id'],
             'title' => $data['title'],
@@ -101,6 +133,7 @@ class PostController extends Controller
             'published_at' => $data['status'] === 'published'
                 ? now()
                 : null,
+            'featured_image' => $imagePath,
         ]);
 
         $post->tags()->sync($data['tags'] ?? []);
@@ -114,6 +147,13 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->tags()->detach();
+
+        if (
+            $post->featured_image &&
+            Storage::disk('public')->exists($post->featured_image)
+        ) {
+            Storage::disk('public')->delete($post->featured_image);
+        }
 
         $post->delete();
 

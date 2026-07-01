@@ -17,6 +17,16 @@ class Post extends Model
         'views',
         'published_at',
     ];
+    protected $appends = ['featured_image_url'];
+
+    public function getFeaturedImageUrlAttribute()
+    {
+        if (!$this->featured_image) {
+            return null;
+        }
+
+        return asset('storage/' . $this->featured_image);
+    }
 
     public function user()
     {

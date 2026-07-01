@@ -121,3 +121,11 @@ Day 6 Checklist
 ✅ attach()
 ✅ detach()
 ✅ Eager Loading (with())
+
+Day 7 Checklist
+✅ Storage Link
+✅ Image Validation
+✅ Image Upload
+✅ Save Image Path
+✅ Image URL Accessor
+✅ Postman File Upload Test

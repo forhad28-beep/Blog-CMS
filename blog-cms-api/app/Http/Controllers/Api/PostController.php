@@ -16,10 +16,11 @@ class PostController extends Controller
     public function index()
     {
         return Post::with([
-            'user',
-            'category',
-            'tags'
+            'user:id,name',
+            'category:id,name',
+            'tags:id,name'
         ])
+            ->withCount('comments')
             ->latest()
             ->paginate(10);
     }

@@ -129,3 +129,12 @@ Day 7 Checklist
 ✅ Save Image Path
 ✅ Image URL Accessor
 ✅ Postman File Upload Test
+
+Day 9 Checklist
+✅ Comments Migration
+✅ Comment Model
+✅ User ↔ Comment
+✅ Post ↔ Comment
+✅ Comment CRUD API
+✅ Eager Loading
+✅ Postman Testing

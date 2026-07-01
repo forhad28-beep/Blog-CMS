@@ -138,3 +138,21 @@ Day 9 Checklist
 ✅ Comment CRUD API
 ✅ Eager Loading
 ✅ Postman Testing
+
+Day 10 Checklist
+✅ Owner Authorization
+✅ Post-wise Comments
+✅ Comment Count
+✅ API Resource
+✅ Clean JSON Response
+✅ Eager Loading Optimization
+
+Day 11 Checklist
+✅ Query Scope
+✅ Search
+✅ Category Filter
+✅ Tag Filter
+✅ Status Filter
+✅ Latest/Oldest Sort
+✅ Pagination
+✅ Multiple Filters

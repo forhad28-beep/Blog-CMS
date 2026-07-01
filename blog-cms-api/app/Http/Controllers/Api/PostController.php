@@ -13,16 +13,19 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Post::with([
+        $perPage = $request->input('per_page', 10);
+        $posts = Post::with([
             'user:id,name',
             'category:id,name',
             'tags:id,name'
         ])
             ->withCount('comments')
-            ->latest()
-            ->paginate(10);
+            ->filter($request)
+            ->paginate($perPage);
+
+        return response()->json($posts);
     }
 
     /**

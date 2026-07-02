@@ -13,6 +13,10 @@ use App\Http\Controllers\Api\PostLikeController;
 use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\Admin\UserController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\Public\ContactController;
+use App\Http\Controllers\Api\Public\NewsletterController;
+use App\Http\Controllers\Api\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\Api\Admin\NewsletterController as AdminNewsletterController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -34,6 +38,9 @@ Route::prefix('public')->group(function () {
     Route::get('/posts/{slug}/related', [publicPostController::class, 'related']);
     Route::get('/categories', [publicPostController::class, 'categories']);
     Route::get('/tags', [publicPostController::class, 'tags']);
+
+    Route::post('/contact', [ContactController::class, 'store']);
+    Route::post('/newsletter', [NewsletterController::class, 'store']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -73,4 +80,6 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function ()
     Route::get('/users/{user}', [UserController::class, 'show']);
     Route::put('/users/{user}/role', [UserController::class, 'updateRole']);
 
+    Route::get('/contacts', [AdminContactController::class, 'index']);
+    Route::get('/newsletters', [AdminNewsletterController::class, 'index']);
 });

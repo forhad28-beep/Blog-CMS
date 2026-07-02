@@ -1,14 +1,18 @@
 # Blog-CMS
+
+## Backend Api
 ### ✅ Sanctum Authentication
-### ✅ Category CRUD
-### ✅ Tag CRUD
-### ✅ Post CRUD
-### ✅ Image Upload
-### ✅ Many-to-Many (Post ↔ Tag)
-### ✅ Comments Module
-### ✅ API Resource
-### ✅ Authorization
+### ✅ Role & Admin Middleware
+### ✅ Profile
+### ✅ Categories
+### ✅ Tags
+### ✅ Posts
+### ✅ Comments
+### ✅ Likes
+### ✅ Bookmarks
 ### ✅ Search & Filter
 ### ✅ Pagination
-### ✅ Form Request
-### ✅ Policy
+### ✅ Dashboard API
+### ✅ Public Blog API
+### ✅ Contact API
+### ✅ Newsletter API

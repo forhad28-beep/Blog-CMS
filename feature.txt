@@ -172,3 +172,65 @@ Day 14 Checklist
 ✅ Update Logic Service-এ
 ✅ Delete Logic Service-এ
 ✅ Thin Controller
+
+Day 17 Checklist
+✅ Post Like
+✅ Unlike
+✅ Unique Like
+✅ Like Count
+✅ Sanctum Protected API
+
+Day 19 Checklist
+✅ Dashboard Controller
+✅ Statistics API
+✅ Latest Posts
+✅ Latest Comments
+✅ Monthly Posts
+✅ Recent Activity
+
+Day 20 Checklist
+✅ Role Column
+✅ Admin User
+✅ Helper Methods
+✅ Post Policy
+✅ Admin Middleware
+✅ Protected Admin Routes
+
+Day 21 Checklist
+✅ User List
+✅ User Search
+✅ User Details
+✅ Update Role
+✅ Prevent Self Demotion
+✅ Admin Protected Routes
+
+Day 22 Checklist
+✅ View Profile
+✅ Update Profile
+✅ Upload Avatar
+✅ Delete Old Avatar
+✅ Change Password
+✅ Avatar URL Accessor
+
+Day 23 Checklist
+✅ Public Posts API
+✅ Single Post API
+✅ Search
+✅ Category Filter
+✅ Tag Filter
+✅ Published Posts Only
+
+Day 24 Checklist
+✅ Featured Posts API
+✅ Popular Posts API
+✅ Latest Posts API
+✅ Related Posts API
+✅ Categories with Post Count
+✅ Tags with Post Count
+
+Day 25 Checklist
+✅ Contact API
+✅ Newsletter API
+✅ Duplicate Email Prevention
+✅ Admin Contact List
+✅ Admin Newsletter List

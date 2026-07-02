@@ -29,7 +29,17 @@ class PostController extends Controller
             ->filter($request)
             ->paginate($perPage);
 
-        return response()->json($posts);
+        return Post::with([
+            'user',
+            'category',
+            'tags'
+        ])
+            ->withCount([
+                'comments',
+                'likes'
+            ])
+            ->latest()
+            ->paginate(10);
     }
 
     /**

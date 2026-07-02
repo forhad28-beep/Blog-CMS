@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\PostLikeController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -29,5 +30,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('tags', TagController::class);
     Route::apiResource('posts', PostController::class);
     Route::apiResource('comments', CommentController::class);
+
+    Route::post(
+        '/posts/{post}/like',
+        [PostLikeController::class, 'toggle']
+    );
+
 
 });

@@ -27,6 +27,13 @@ Route::get('/posts/{post}/comments', [CommentController::class, 'postComments'])
 Route::prefix('public')->group(function () {
     Route::get('/posts', [publicPostController::class, 'index']);
     Route::get('/posts/{slug}', [publicPostController::class, 'show']);
+
+    Route::get('/featured-posts', [publicPostController::class, 'featured']);
+    Route::get('/popular-posts', [publicPostController::class, 'popular']);
+    Route::get('/latest-posts', [publicPostController::class, 'latest']);
+    Route::get('/posts/{slug}/related', [publicPostController::class, 'related']);
+    Route::get('/categories', [publicPostController::class, 'categories']);
+    Route::get('/tags', [publicPostController::class, 'tags']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -61,7 +68,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard',[DashboardController::class, 'index']);
+    Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/users/{user}', [UserController::class, 'show']);
     Route::put('/users/{user}/role', [UserController::class, 'updateRole']);

@@ -156,3 +156,11 @@ Day 11 Checklist
 ✅ Latest/Oldest Sort
 ✅ Pagination
 ✅ Multiple Filters
+
+Day 12 Checklist
+✅ Store Form Request
+✅ Update Form Request
+✅ validated()
+✅ Custom Messages
+✅ Custom Attributes
+✅ Cleaner Controller

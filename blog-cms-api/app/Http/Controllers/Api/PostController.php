@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 
 class PostController extends Controller
 {
@@ -31,18 +33,9 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        $data = $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'title' => 'required|max:255',
-            'content' => 'required',
-            'status' => 'required|in:draft,published',
-            'tags' => 'nullable|array',
-            'tags.*' => 'exists:tags,id',
-
-            'featured_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
+        $data = $request->validated();
 
         $slug = Str::slug($data['title']);
 
@@ -89,18 +82,11 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        $data = $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'title' => 'required|max:255',
-            'content' => 'required',
-            'status' => 'required|in:draft,published',
-            'tags' => 'nullable|array',
-            'tags.*' => 'exists:tags,id',
+        $this->authorize('update', $post);
 
-            'featured_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
+        $data = $request->validated();
 
         $slug = Str::slug($data['title']);
 
@@ -150,6 +136,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('delete', $post);
+
         $post->tags()->detach();
 
         if (

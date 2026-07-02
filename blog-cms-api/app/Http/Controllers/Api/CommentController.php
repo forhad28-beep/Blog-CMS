@@ -60,6 +60,7 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
+        $this->authorize('update', $comment);
         if ($request->user()->id !== $comment->user_id) {
             return response()->json([
                 'message' => 'Unauthorized'
@@ -80,6 +81,7 @@ class CommentController extends Controller
      */
     public function destroy(Request $request, Comment $comment)
     {
+        $this->authorize('delete', $comment);
         if ($request->user()->id !== $comment->user_id) {
             return response()->json([
                 'message' => 'Unauthorized'

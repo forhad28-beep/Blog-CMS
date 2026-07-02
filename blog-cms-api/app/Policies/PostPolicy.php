@@ -9,13 +9,19 @@ class PostPolicy
 {
     public function update(User $user, Post $post): bool
     {
-        return $user->id === $post->user_id
-            || $user->role === 'admin';
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        return $user->id === $post->user_id;
     }
 
     public function delete(User $user, Post $post): bool
     {
-        return $user->id === $post->user_id
-            || $user->role === 'admin';
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        return $user->id === $post->user_id;
     }
 }

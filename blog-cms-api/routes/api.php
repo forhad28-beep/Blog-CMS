@@ -10,6 +10,8 @@ use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\PostLikeController;
 use App\Http\Controllers\Api\Admin\DashboardController;
+use App\Http\Controllers\Api\Admin\UserController;
+use App\Http\Controllers\Api\ProfileController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -27,6 +29,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', function (Request $request) {
         return $request->user();
     });
+
+    Route::get('/profile', [ProfileController::class, 'show']);
+    Route::post('/profile', [ProfileController::class, 'update']);
+    Route::put('/profile/password', [ProfileController::class, 'changePassword']);
 
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('tags', TagController::class);
@@ -46,6 +52,17 @@ Route::middleware('auth:sanctum')->group(function () {
         '/bookmarks',
         [BookmarkController::class, 'index']
     );
+});
 
-    Route::get('/admin/dashboard', [DashboardController::class, 'index']);
+
+Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
+
+    Route::get('/dashboard',[DashboardController::class, 'index']);
+
+    Route::get('/users', [UserController::class, 'index']);
+
+    Route::get('/users/{user}', [UserController::class, 'show']);
+
+    Route::put('/users/{user}/role', [UserController::class, 'updateRole']);
+
 });

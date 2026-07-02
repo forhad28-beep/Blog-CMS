@@ -26,7 +26,16 @@ class User extends Authenticatable
         'avatar',
         'bio',
     ];
+    protected $appends = ['avatar_url'];
 
+    public function getAvatarUrlAttribute()
+    {
+        if (!$this->avatar) {
+            return null;
+        }
+
+        return asset('storage/' . $this->avatar);
+    }
     protected $hidden = [
         'password',
         'remember_token',
@@ -60,5 +69,20 @@ class User extends Authenticatable
     public function bookmarks()
     {
         return $this->hasMany(Bookmark::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isAuthor()
+    {
+        return $this->role === 'author';
+    }
+
+    public function isUser()
+    {
+        return $this->role === 'user';
     }
 }

@@ -164,3 +164,11 @@ Day 12 Checklist
 ✅ Custom Messages
 ✅ Custom Attributes
 ✅ Cleaner Controller
+
+Day 14 Checklist
+✅ Service Layer
+✅ Dependency Injection
+✅ Create Logic Service-এ
+✅ Update Logic Service-এ
+✅ Delete Logic Service-এ
+✅ Thin Controller

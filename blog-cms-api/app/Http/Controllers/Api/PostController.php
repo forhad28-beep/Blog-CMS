@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-
+use App\Services\PostService;
 class PostController extends Controller
 {
+    public function __construct(
+        private PostService $postService
+    ) {
+    }
     /**
      * Display a listing of the resource.
      */
@@ -35,36 +37,10 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        $data = $request->validated();
-
-        $slug = Str::slug($data['title']);
-
-        $imagePath = null;
-
-        if ($request->hasFile('featured_image')) {
-            $imagePath = $request
-                ->file('featured_image')
-                ->store('posts', 'public');
-        }
-
-        $post = Post::create([
-            'user_id' => $request->user()->id,
-            'category_id' => $data['category_id'],
-            'title' => $data['title'],
-            'slug' => $slug,
-            'content' => $data['content'],
-            'status' => $data['status'],
-            'published_at' => $data['status'] === 'published'
-                ? now()
-                : null,
-            'featured_image' => $imagePath,
-        ]);
-
-        if (!empty($data['tags'])) {
-            $post->tags()->sync($data['tags']);
-        }
-
-        return response()->json($post->load('tags'), 201);
+        return $this->postService->create(
+            $request->validated(),
+            $request->user()
+        );
     }
 
     /**
@@ -82,53 +58,16 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePostRequest $request, Post $post)
-    {
+    public function update(
+        UpdatePostRequest $request,
+        Post $post
+    ) {
         $this->authorize('update', $post);
 
-        $data = $request->validated();
-
-        $slug = Str::slug($data['title']);
-
-        if (
-            Post::where('slug', $slug)
-                ->where('id', '!=', $post->id)
-                ->exists()
-        ) {
-            $slug .= '-' . time();
-        }
-
-        $imagePath = $post->featured_image;
-
-        if ($request->hasFile('featured_image')) {
-
-            if (
-                $post->featured_image &&
-                Storage::disk('public')->exists($post->featured_image)
-            ) {
-                Storage::disk('public')->delete($post->featured_image);
-            }
-
-            $imagePath = $request
-                ->file('featured_image')
-                ->store('posts', 'public');
-        }
-
-        $post->update([
-            'category_id' => $data['category_id'],
-            'title' => $data['title'],
-            'slug' => $slug,
-            'content' => $data['content'],
-            'status' => $data['status'],
-            'published_at' => $data['status'] === 'published'
-                ? now()
-                : null,
-            'featured_image' => $imagePath,
-        ]);
-
-        $post->tags()->sync($data['tags'] ?? []);
-
-        return $post->load('tags');
+        return $this->postService->update(
+            $post,
+            $request->validated()
+        );
     }
 
     /**
@@ -138,16 +77,7 @@ class PostController extends Controller
     {
         $this->authorize('delete', $post);
 
-        $post->tags()->detach();
-
-        if (
-            $post->featured_image &&
-            Storage::disk('public')->exists($post->featured_image)
-        ) {
-            Storage::disk('public')->delete($post->featured_image);
-        }
-
-        $post->delete();
+        $this->postService->delete($post);
 
         return response()->json([
             'message' => 'Post deleted successfully'

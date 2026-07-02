@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\BookmarkController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\Public\PostController as publicPostController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\PostLikeController;
 use App\Http\Controllers\Api\Admin\DashboardController;
@@ -22,10 +23,14 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/posts/{post}/comments', [CommentController::class, 'postComments']);
 
+// public routes
+Route::prefix('public')->group(function () {
+    Route::get('/posts', [publicPostController::class, 'index']);
+    Route::get('/posts/{slug}', [publicPostController::class, 'show']);
+});
+
 Route::middleware('auth:sanctum')->group(function () {
-
     Route::post('/logout', [AuthController::class, 'logout']);
-
     Route::get('/me', function (Request $request) {
         return $request->user();
     });
@@ -56,13 +61,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
-
     Route::get('/dashboard',[DashboardController::class, 'index']);
-
     Route::get('/users', [UserController::class, 'index']);
-
     Route::get('/users/{user}', [UserController::class, 'show']);
-
     Route::put('/users/{user}/role', [UserController::class, 'updateRole']);
 
 });
